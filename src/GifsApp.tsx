@@ -1,21 +1,26 @@
 import { GifList, PreviousSearches } from "./gifs/components";
 import { CustomHeader, SearchBar } from "./shared/components";
-import { mockGifs } from "./mock-data/gifs.mock";
 import { useState } from "react";
+import { getGifsByQuery } from "./gifs/actions";
+import { Gif } from "./gifs/interfaces";
 
 export const GifsApp = () => {
+    const [gifs, setGifs] = useState<Gif[]>([]);
     const [previousTerms, setPreviousTerms] = useState<string[]>([]);
 
     const handleTermClicked = (term: string) => {
         console.log(term);
     };
 
-    const handleSearch = (query: string) => {
+    const handleSearch = async (query: string) => {
         if (query.trim() === "") return;
-        const term = query.replace(/ /g, "").toLocaleUpperCase();
+        //const term = query.replace(/ /g, "").toLocaleUpperCase();
+        const term = query.toLocaleUpperCase();
         if (!previousTerms.includes(term)) {
             console.log("including...");
             setPreviousTerms([term, ...previousTerms].slice(0, 8));
+
+            setGifs(await getGifsByQuery(term));
         }
     };
 
@@ -31,7 +36,7 @@ export const GifsApp = () => {
             <PreviousSearches searches={previousTerms} onLabelClick={handleTermClicked} />
 
             {/* Gifs */}
-            <GifList gifs={mockGifs} />
+            <GifList gifs={gifs} />
         </>
     );
 };
