@@ -12,6 +12,7 @@ export const SearchBar = ({ placeholder, onQuery }: Props) => {
         //debouncer effect
         const timeoutId = setTimeout(() => {
             onQuery(query);
+            setQuery("");
         }, 700);
 
         return () => {
