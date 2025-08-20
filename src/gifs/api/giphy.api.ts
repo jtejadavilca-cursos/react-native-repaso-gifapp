@@ -6,6 +6,6 @@ export const giphyApi = axios.create({
     params: {
         api_key: API_KEY,
         limit: 25,
-        lang: "en",
+        lang: "es",
     },
 });
