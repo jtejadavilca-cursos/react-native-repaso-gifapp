@@ -13,14 +13,15 @@ export const useGifs = () => {
     };
 
     const handleSearch = async (query: string) => {
-        if (query.trim() === "") return;
-        //const term = query.replace(/ /g, "").toLocaleUpperCase();
-        const term = query.toLocaleUpperCase();
+        let term = query.trim();
+        if (term === "") return;
+
+        term = term.trim().toLocaleUpperCase();
         if (!previousTerms.includes(term)) {
             setPreviousTerms([term, ...previousTerms].slice(0, 8));
         }
+
         let gifsResult = gifsCache.current[term];
-        console.log("gifsResult:", gifsResult, "term", term, "!gifsResult", !gifsResult);
         if (!gifsResult) {
             gifsResult = await getGifsByQuery(term);
             gifsCache.current[term] = gifsResult;
