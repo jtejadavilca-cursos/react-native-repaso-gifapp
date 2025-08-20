@@ -19,27 +19,27 @@ describe("useGifs", () => {
         vi.restoreAllMocks();
     });
 
-    // test("Should initialize with default values", () => {
-    //     const { result } = renderHook(() => useGifs());
+    test("Should initialize with default values", () => {
+        const { result } = renderHook(() => useGifs());
 
-    //     expect(result.current.gifs).toStrictEqual([]);
-    //     expect(result.current.previousTerms).toStrictEqual([]);
-    //     expect(result.current.handleSearch).toBeDefined();
-    //     expect(result.current.handleTermClicked).toBeDefined();
-    // });
+        expect(result.current.gifs).toStrictEqual([]);
+        expect(result.current.previousTerms).toStrictEqual([]);
+        expect(result.current.handleSearch).toBeDefined();
+        expect(result.current.handleTermClicked).toBeDefined();
+    });
 
-    // test.each([
-    //     { query: "test", term: "TEST" },
-    //     { query: "test", term: "TEST" },
-    //     { query: "  tESt   ", term: "TEST" },
-    // ])("Should handle search when trigger it", async ({ query, term }) => {
-    //     const { result } = renderHook(() => useGifs());
+    test.each([
+        { query: "test", term: "TEST" },
+        { query: "test", term: "TEST" },
+        { query: "  tESt   ", term: "TEST" },
+    ])("Should handle search when trigger it", async ({ query, term }) => {
+        const { result } = renderHook(() => useGifs());
 
-    //     await act(async () => await result.current.handleSearch(query));
+        await act(async () => await result.current.handleSearch(query));
 
-    //     expect(result.current.previousTerms).toStrictEqual([term]);
-    //     expect(getGifsByQuery).toHaveBeenCalledOnce();
-    // });
+        expect(result.current.previousTerms).toStrictEqual([term]);
+        expect(getGifsByQuery).toHaveBeenCalledOnce();
+    });
 
     test("Should get gifs from cache when term is already searched", async () => {
         const { result } = renderHook(() => useGifs());
