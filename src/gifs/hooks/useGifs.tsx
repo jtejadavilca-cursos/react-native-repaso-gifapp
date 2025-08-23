@@ -18,7 +18,7 @@ export const useGifs = () => {
 
         term = term.trim().toLocaleUpperCase();
         if (!previousTerms.includes(term)) {
-            setPreviousTerms([term, ...previousTerms].slice(0, 8));
+            setPreviousTerms((prev) => [term, ...prev].slice(0, 8));
         }
 
         let gifsResult = gifsCache.current[term];

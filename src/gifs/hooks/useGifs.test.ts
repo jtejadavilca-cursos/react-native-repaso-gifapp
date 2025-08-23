@@ -58,8 +58,10 @@ describe("useGifs", () => {
         const query1 = "TEST1";
         const query2 = "TEST2";
 
-        await act(async () => await result.current.handleSearch(query1));
-        await act(async () => await result.current.handleSearch(query2));
+        await act(async () => {
+            await result.current.handleSearch(query1);
+            await result.current.handleSearch(query2);
+        });
 
         expect(result.current.previousTerms).toStrictEqual([query2, query1]);
         expect(result.current.gifs).toStrictEqual([mockGif]);
